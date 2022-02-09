@@ -77,6 +77,7 @@ class SaltAndPeperNoise(Noise):
         coords = [np.random.randint(0, i - 1, int(num_salt))
                 for i in image.shape]
         out[tuple(coords)] = 1
+        
         # Pepper mode
         num_pepper = np.ceil(self.amount* image.size * (1. - self.s_vs_p))
         coords = [np.random.randint(0, i - 1, int(num_pepper))
