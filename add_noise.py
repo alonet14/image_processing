@@ -5,12 +5,13 @@ import numpy as np
 import abc
 from numpy.random import Generator
 import matplotlib.pyplot as plt
+
 class Noise(metaclass = abc.ABCMeta):
     def __init__(self, filepath: Path):
         self.filepath = filepath
         
     def get_matrix_image(self):
-        return cv2.cvtColor(cv2.imread(str(self.filepath)), cv2.COLOR_BGR2RGB)
+        return cv2.imread(str(self.filepath), cv2.IMREAD_GRAYSCALE)
     
     @abc.abstractmethod
     def noise(self)->np.array:
@@ -99,15 +100,6 @@ class UniformNoise(Noise):
         print(uniform_gen)
         return np.asarray(uniform_gen)
     
-    
-# from add_noise import SaltAndPeperNoise
-# from config import Flag
-# prefix = Flag.image_origin
-# file_name = prefix / 'banana.jpg'
-# saltAndPeperNoise = SaltAndPeperNoise(str(file_name), s_vs_p=1, amount=0.05)
-# sapn = saltAndPeperNoise.noise()
-# image_noise = sapn
-# plt.imshow(sapn)
-# plt.show()
+
 
         
