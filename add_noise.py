@@ -21,6 +21,7 @@ class Noise(metaclass = abc.ABCMeta):
         noise_gen = self.noise()
         origin_image = self.get_matrix_image()
         noise_image = origin_image+noise_gen
+        # print(noise_image)
         return noise_image
        
 class GaussianNoise(Noise):
@@ -31,9 +32,9 @@ class GaussianNoise(Noise):
     
     def noise(self)->np.array:
         image = self.get_matrix_image()
-        row, col, ch = image.shape
+        row, col = image.shape
         sigma = self.var**0.5
-        gauss = np.random.normal(self.mean, sigma, (row, col, ch))
+        gauss = np.random.normal(self.mean, sigma, (row, col))
         return gauss
   
 class RayleighNoise(Noise):
@@ -98,7 +99,6 @@ class UniformNoise(Noise):
         image = self.get_matrix_image()
         row, col, ch = image.shape
         uniform_gen = Generator.uniform(self.a, self.b, (row, col, ch))
-        print(uniform_gen)
         return np.asarray(uniform_gen)
     
 
